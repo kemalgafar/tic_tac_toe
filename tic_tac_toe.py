@@ -6,8 +6,11 @@ class Board(object):
         #self.is_x_turn = True
         self.total_moves = 0 #if you get to 9 then its a stale mate automatically? check this
 
+    def active_board():
+        current_board = 
+
     def display_board(self):
-        
+
 
 def play_turn():
     if self.total_moves % 2 == 0: #if zero it means its X's turn
