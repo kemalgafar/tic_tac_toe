@@ -18,13 +18,16 @@ def place_x_o(Test):
         o_turn(Test)
 
 def x_turn(Test):
-    str_coords = check_input()
-    board_x_y = str_to_int(str_coords)
+    board_x_y = str_to_int()
+    print(board_x_y)
 
     if Test.initial_board[board_x_y[0]][board_x_y[1] - 1] == " ":
         Test.initial_board[board_x_y[0]][board_x_y[1] - 1] = "X"
     else:
         x_turn(Test)
+
+    Test.turn_ctr += 1
+
 
 '''
 def o_turn(Test):
@@ -45,14 +48,12 @@ def check_input():
         print("Erroneous input, please try again")
         return check_input()
 
-def str_to_int(str_coords):
-    int_list = []
+def str_to_int():
 
-    for item in str_coords:
-        if item == ("A" or "B" or "C"):
-            int_list[0] = char_look_up[item]
-        else:
-            int_list = int(item)
+    str_coords = check_input()
+    int_list = [None, None] #why cant i leave as empty list
+    int_list[0] = char_look_up[str_coords[0]]
+    int_list[1] = int(str_coords[1])
 
     return int_list
 
@@ -66,6 +67,9 @@ def str_to_int(str_coords):
 # if a " " appears anywhere in the check then its not a winner
 def score_board():
 '''
+
+def play_game():
+
 
 Test = Board()
 x_turn(Test)
