@@ -24,15 +24,8 @@ def x_turn(Test):
     if Test.initial_board[board_x_y[0]][board_x_y[1] - 1] == " ":
         Test.initial_board[board_x_y[0]][board_x_y[1] - 1] = "X"
     else:
+        print("That space is already occupied! Pick another square")
         x_turn(Test)
-
-    Test.turn_ctr += 1
-
-
-'''
-def o_turn(Test):
-    #look up strat
-'''
 
 def user_input():
     print("X's turn!\nPlease enter in a coordinate to place an X")
@@ -57,6 +50,33 @@ def str_to_int():
 
     return int_list
 
+def score_board(Test):
+    # You only need to check the last move that went
+    three_in_a_row = 0
+
+    if Test.turn_ctr % 2 == 0:
+        token = "X"
+    else:
+        token = "O"
+
+    #Score diagonals
+    if Test.initial_board[1][1] == token:
+        if Test.initial_board[0][0] and Test.initial_board[2][2] == token:
+            three_in_a_row = 3
+        if Test.initial_board[2][0] and Test.initial_board[0][2] == token:
+            three_in_a_row = 3
+
+    #Score horizontal
+    if 
+
+    #Score verticals
+
+
+'''
+def o_turn(Test):
+    #look up strat
+'''
+
 '''
 #determines if there is a winner for the game
 #only need to check for the user that just went as they are the only ones changing state
@@ -65,10 +85,16 @@ def str_to_int():
 # two for loops can check the horizontal and vertical cases
 # diagonals will be taken care of each case
 # if a " " appears anywhere in the check then its not a winner
-def score_board():
 '''
 
-def play_game():
+def play_game(Test):
+    place_x_o(Test)
+    if Test.turn_ctr > 4:
+        win = score_board(Test)
+        if win == True
+            display_winner()
+    Test.turn_ctr += 1
+
 
 
 Test = Board()
