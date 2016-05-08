@@ -15,6 +15,9 @@ class Board(object):
             print("O won the game!")
 
 char_look_up = {"A":0, "B":1, "C":2}
+corners = [[0,0], [0,2], [2,0], [2,2]]
+edges = [[0,1], [1,0], [1,2], [2,1]]
+center = [1,1]
 
 def place_x_o(Game_bd):
     if Game_bd.turn_ctr % 2 == 0:
@@ -26,10 +29,10 @@ def x_turn(Game_bd):
     board_x_y = str_to_int()
     print(board_x_y)
     if Game_bd.spaces[board_x_y[0]][board_x_y[1] - 1] == " ":
-        Game_bd.spaces[board_x_y[0]][board_x_y[1] - 1] = "X"
+        Game_bd.spaces[board_x_y[0]][board_x_y[1] - 1] = "X"  #return this?
     else:
         print("That space is already occupied! Pick another square")
-        x_turn(Game_bd)
+        x_turn(Game_bd)   #return this?
 
 def user_input():
     print("X's turn!\nPlease enter in a coordinate to place an X")
@@ -60,6 +63,7 @@ def o_choices(Game_bd):
     if Game_bd.spaces[1][1] == " ":
         return [1, 1]
     else:
+        #
 
 def score_board(Game_bd):
     three_in_a_row = False
