@@ -16,7 +16,9 @@ class Board(object):
             print("O won the game!")
 
 char_look_up = {"A":0, "B":1, "C":2}
-corners = [[0,0], [0,2], [2,0], [2,2]]
+
+# The 9 possible spaces
+corners = [[0,0], [0,2], [2,0], [2,2]] #make into dicts, then no need for importing rand
 edges = [[0,1], [1,0], [1,2], [2,1]]
 center = [1,1]
 
@@ -27,10 +29,15 @@ def place_x_o(Game_bd):
         o_turn(Game_bd)
 
 def x_turn(Game_bd):
-    board_x_y = str_to_int()
-    print(board_x_y)
-    if Game_bd.spaces[board_x_y[0]][board_x_y[1] - 1] == " ":
-        Game_bd.spaces[board_x_y[0]][board_x_y[1] - 1] = "X"  #return this?
+    x_coord = str_to_int()
+    if Game_bd.spaces[x_coord[0]][x_coord[1] - 1] == " ":
+        if [x_coord[0], x_coord[1] - 1] in corners:
+            corners.remove([x_coord[0], x_coord[1] - 1])
+        elif [x_coord[0], x_coord[1] - 1] in edges:
+            edges.remove([x_coord[0], x_coord[1] - 1])
+        else:
+            center.remove([x_coord[0], x_coord[1] - 1])
+        Game_bd.spaces[x_coord[0]][x_coord[1] - 1] = "X"  #return this?
     else:
         print("That space is already occupied! Pick another square")
         x_turn(Game_bd)   #return this?
@@ -57,22 +64,22 @@ def str_to_int():
     return int_list
 
 def o_turn(Game_bd):
-    board_x_y = o_choices(Game_bd)
-    Game_bd.spaces[board_x_y[0]][board_x_y[1]] = "O"
+    print("X's turn!")
+    o_coord = o_choices(Game_bd)
+    Game_bd.spaces[o_coord[0]][o_coord[1]] = "O"
 
 def o_choices(Game_bd):
     # Opening move for "O"
-    if Game_bd.turn_ctr == 2:
+    if Game_bd.turn_ctr == 1:
         if Game_bd.spaces[1][1] == "X":
-            return random.choice(corners)
+            random.shuffle(corners)
+            return corners.pop()
         else:
             return center
     # Every other move for "0"
     else:
+        return random.choice(corners + edges + center)
 
-
-
-        #
 
 def score_board(Game_bd):
     three_in_a_row = False
@@ -103,8 +110,9 @@ def play_game(Game_bd):
         place_x_o(Game_bd)
         if Game_bd.turn_ctr > 4:
             win = score_board(Game_bd)
-            if win == True
-                Game_bd.display_winner()#make a fuc of the class?
+            if win == True:
+                Game_bd.display_winner()
+                break
         Game_bd.turn_ctr += 1
         if Game_bd.turn_ctr == 9 and win == False:  #take the dis winner func out of the class can combine all 3 options in a func
             print("The game ends in a stalemate")
