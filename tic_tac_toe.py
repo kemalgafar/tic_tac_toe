@@ -8,6 +8,12 @@ class Board(object):
     def display_board(self):
         print(self.spaces)
 
+    def display_winner(self):
+        if self.turn_ctr % 2 == 0:
+            print("X won the game!")
+        else:
+            print("O won the game!")
+
 char_look_up = {"A":0, "B":1, "C":2}
 
 def place_x_o(Game_bd):
@@ -49,7 +55,6 @@ def str_to_int():
     return int_list
 
 def score_board(Game_bd):
-    # You only need to check the last move that went
     three_in_a_row = False
 
     if Game_bd.turn_ctr % 2 == 0:
@@ -64,7 +69,7 @@ def score_board(Game_bd):
         if Game_bd.spaces[2][0] and Game_bd.spaces[0][2] == token:
             three_in_a_row = True
 
-    #Score horizontal
+    #Score horizontals
     for i in range(3):
         if Game_bd.spaces[i][0] and Game_bd.spaces[i][1] and Game_bd.spaces[i][2] == token:
             three_in_a_row = True
@@ -104,9 +109,9 @@ def play_game(Game_bd):
         if Game_bd.turn_ctr > 4:
             win = score_board(Game_bd)
             if win == True
-                display_winner()#make a fuc of the class?
+                Game_bd.display_winner()#make a fuc of the class?
         Game_bd.turn_ctr += 1
-        if Game_bd.turn_ctr == 9 and win == False:
+        if Game_bd.turn_ctr == 9 and win == False:  #take the dis winner func out of the class can combine all 3 options in a func
             print("The game ends in a stalemate")
 
 
