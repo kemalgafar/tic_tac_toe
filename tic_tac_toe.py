@@ -1,4 +1,5 @@
 import re
+import random
 
 class Board(object):
     def __init__(self):
@@ -60,9 +61,17 @@ def o_turn(Game_bd):
     Game_bd.spaces[board_x_y[0]][board_x_y[1]] = "O"
 
 def o_choices(Game_bd):
-    if Game_bd.spaces[1][1] == " ":
-        return [1, 1]
+    # Opening move for "O"
+    if Game_bd.turn_ctr == 2:
+        if Game_bd.spaces[1][1] == "X":
+            return random.choice(corners)
+        else:
+            return center
+    # Every other move for "0"
     else:
+
+
+
         #
 
 def score_board(Game_bd):
