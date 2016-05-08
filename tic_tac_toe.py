@@ -58,7 +58,7 @@ def o_turn(Game_bd):
 
 def o_choices(Game_bd):
     if Game_bd.spaces[1][1] == " ":
-        Game_bd.spaces[1][1] == "O"
+        return [1, 1]
     else:
 
 def score_board(Game_bd):
