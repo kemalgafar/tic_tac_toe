@@ -11,7 +11,6 @@ class Board(object):
 char_look_up = {"A":0, "B":1, "C":2}
 
 def place_x_o(Test):
-
     if Test.turn_ctr % 2 == 0:
         x_turn(Test)
     else:
@@ -42,7 +41,6 @@ def check_input():
         return check_input()
 
 def str_to_int():
-
     str_coords = check_input()
     int_list = [None, None] #why cant i leave as empty list
     int_list[0] = char_look_up[str_coords[0]]
@@ -66,16 +64,20 @@ def score_board(Test):
         if Test.initial_board[2][0] and Test.initial_board[0][2] == token:
             three_in_a_row = 3
 
+    for i in range(3):
+        for j in range(3):
     #Score horizontal
-    if 
 
     #Score verticals
 
 
-'''
 def o_turn(Test):
-    #look up strat
-'''
+    board_x_y = o_choices(Test)
+    Test.initial_board[board_x_y[0]][board_x_y[1]] = "O"
+
+
+def o_choices(Test):
+    #
 
 '''
 #determines if there is a winner for the game
@@ -88,12 +90,16 @@ def o_turn(Test):
 '''
 
 def play_game(Test):
-    place_x_o(Test)
-    if Test.turn_ctr > 4:
-        win = score_board(Test)
-        if win == True
-            display_winner()
-    Test.turn_ctr += 1
+    win = False
+    while Test.turn_ctr < 10:
+        place_x_o(Test)
+        if Test.turn_ctr > 4:
+            win = score_board(Test)
+            if win == True
+                display_winner()
+        Test.turn_ctr += 1
+        if Test.turn_ctr == 9 and win == False:
+            print("The game ends in a stalemate")
 
 
 
