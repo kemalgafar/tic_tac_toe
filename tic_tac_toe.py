@@ -26,7 +26,7 @@ char_look_up = {"A":0, "B":1, "C":2}
 # The 9 possible spaces
 corners = [[0,0], [0,2], [2,0], [2,2]] #make into dicts, then no need for importing rand
 edges = [[0,1], [1,0], [1,2], [2,1]]
-center = [1,1]
+center = [[1,1]]
 
 def place_x_o(Game_bd):
     if Game_bd.turn_ctr % 2 == 0:
@@ -83,8 +83,14 @@ def o_choices(Game_bd):
         else:
             return center
     # Every other move for "0"
+    #elif:
     else:
-        return random.choice(corners + edges + center) #handle TypeError
+        remaining_spaces = (corners + edges + center)
+        try:
+            remaining_spaces.remove([])
+        except:
+            pass
+        return random.choice(remaining_spaces) #handle TypeError
 
 
 def score_board(Game_bd):
@@ -95,17 +101,17 @@ def score_board(Game_bd):
         token = "O"
     #Score diagonals
     if Game_bd.spaces[1][1] == token:
-        if Game_bd.spaces[0][0] and Game_bd.spaces[2][2] == token:
+        if (Game_bd.spaces[0][0] and Game_bd.spaces[2][2]) == token:
             three_in_a_row = True
-        if Game_bd.spaces[2][0] and Game_bd.spaces[0][2] == token:
+        if (Game_bd.spaces[0][2] and Game_bd.spaces[2][0]) == token:
             three_in_a_row = True
     #Score horizontals
     for i in range(3):
-        if Game_bd.spaces[i][0] and Game_bd.spaces[i][1] and Game_bd.spaces[i][2] == token:
+        if (Game_bd.spaces[i][0] and Game_bd.spaces[i][1] and Game_bd.spaces[i][2]) == token:
             three_in_a_row = True
     #Score verticals
     for j in range(3):
-        if Game_bd.spaces[0][j] and Game_bd.spaces[1][j] and Game_bd.spaces[2][j] == token:
+        if (Game_bd.spaces[0][j] and Game_bd.spaces[1][j] and Game_bd.spaces[2][j]) == token:
             three_in_a_row = True
     return three_in_a_row
 
@@ -123,6 +129,7 @@ def play_game(Game_bd):
         Game_bd.turn_ctr += 1
         if Game_bd.turn_ctr == 9 and win == False:  #take the dis winner func out of the class can combine all 3 options in a func
             print("The game ends in a stalemate")
+            break
 
 
 Game_bd = Board()
