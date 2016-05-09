@@ -81,7 +81,7 @@ def o_choices(Game_bd):
             random.shuffle(corners)
             return corners.pop()
         else:
-            return center
+            return center.pop()
     # Every other move for "0"
     #elif:
     else:
@@ -120,7 +120,7 @@ def play_game(Game_bd):
     while Game_bd.turn_ctr < 10:
         Game_bd.display_board()
         place_x_o(Game_bd)
-        if Game_bd.turn_ctr > 4:
+        if Game_bd.turn_ctr > 3:
             win = score_board(Game_bd)
             if win == True:
                 Game_bd.display_board()
