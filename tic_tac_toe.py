@@ -2,7 +2,7 @@
 # TODO 2. Write a better display func, show the board properly
 # TODO 3. Refactor functions, remove import random -> use dicts
 # TODO 4. PEP8 cleanup
-# TODO 5. Ask wether the user wants to go first or not (will need to rewite O's decsions)
+# TODO 5. Ask whether the user wants to go first or not (will need to rewite O's decsions)
 
 import re
 import random
@@ -64,13 +64,13 @@ def check_input():
 
 def str_to_int():
     str_coords = check_input()
-    int_list = [None, None] #why cant i leave as empty list???
-    int_list[0] = char_look_up[str_coords[0]]
-    int_list[1] = int(str_coords[1])
+    int_list = []
+    int_list.append(char_look_up[str_coords[0]])
+    int_list.append(int(str_coords[1]))
     return int_list
 
 def o_turn(Game_bd):
-    print("X's turn!")
+    print("O's turn!")
     o_coord = o_choices(Game_bd)
     Game_bd.spaces[o_coord[0]][o_coord[1]] = "O"
 
@@ -84,7 +84,7 @@ def o_choices(Game_bd):
             return center
     # Every other move for "0"
     else:
-        return random.choice(corners + edges + center)
+        return random.choice(corners + edges + center) #handle TypeError
 
 
 def score_board(Game_bd):
@@ -117,6 +117,7 @@ def play_game(Game_bd):
         if Game_bd.turn_ctr > 4:
             win = score_board(Game_bd)
             if win == True:
+                Game_bd.display_board()
                 Game_bd.display_winner()
                 break
         Game_bd.turn_ctr += 1
