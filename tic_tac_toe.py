@@ -101,17 +101,17 @@ def score_board(Game_bd):
         token = "O"
     #Score diagonals
     if Game_bd.spaces[1][1] == token:
-        if (Game_bd.spaces[0][0] and Game_bd.spaces[2][2]) == token:
+        if (Game_bd.spaces[0][0] == token) and (Game_bd.spaces[2][2] == token):
             three_in_a_row = True
-        if (Game_bd.spaces[0][2] and Game_bd.spaces[2][0]) == token:
+        if (Game_bd.spaces[0][2] == token) and (Game_bd.spaces[2][0] == token):
             three_in_a_row = True
     #Score horizontals
     for i in range(3):
-        if (Game_bd.spaces[i][0] and Game_bd.spaces[i][1] and Game_bd.spaces[i][2]) == token:
+        if (Game_bd.spaces[i][0] == token) and (Game_bd.spaces[i][1] == token) and (Game_bd.spaces[i][2] == token):
             three_in_a_row = True
     #Score verticals
     for j in range(3):
-        if (Game_bd.spaces[0][j] and Game_bd.spaces[1][j] and Game_bd.spaces[2][j]) == token:
+        if (Game_bd.spaces[0][j] == token) and (Game_bd.spaces[1][j] == token) and (Game_bd.spaces[2][j] == token):
             three_in_a_row = True
     return three_in_a_row
 
