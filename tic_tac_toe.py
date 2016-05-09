@@ -1,3 +1,8 @@
+# TODO 1. Remove randomness from O's decsions, alwas go for the draw
+# TODO 2. Write a better display func, show the board properly
+# TODO 3. Refactor functions, remove import random -> use dicts
+# TODO 4. Ask weather the user wants to go first or not (will need to rewite O's decsions)
+
 import re
 import random
 
