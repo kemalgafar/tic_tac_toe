@@ -1,6 +1,6 @@
 # TODO 1. Remove randomness from O's decsions, always go for the draw
 # TODO 2. Write a better display func, show the board properly
-# TODO 3. Refactor functions, remove import random -> use dicts
+# TODO 3. Refactor functions, remove import random -> use dicts for lists
 # TODO 4. PEP8 cleanup
 # TODO 5. Ask whether the user wants to go first or not (will need to rewite O's decsions)
 
@@ -43,10 +43,10 @@ def x_turn(Game_bd):
             edges.remove([x_coord[0], x_coord[1] - 1])
         else:
             center.remove([x_coord[0], x_coord[1] - 1])
-        Game_bd.spaces[x_coord[0]][x_coord[1] - 1] = "X"  #return this?
+        Game_bd.spaces[x_coord[0]][x_coord[1] - 1] = "X"
     else:
         print("That space is already occupied! Pick another square")
-        x_turn(Game_bd)   #return this?
+        x_turn(Game_bd)
 
 def user_input():
     print("X's turn!\nPlease enter in a coordinate to place an X")
@@ -90,7 +90,7 @@ def o_choices(Game_bd):
             remaining_spaces.remove([])
         except:
             pass
-        return random.choice(remaining_spaces) #handle TypeError
+        return random.choice(remaining_spaces)
 
 
 def score_board(Game_bd):
