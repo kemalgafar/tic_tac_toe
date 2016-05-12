@@ -1,8 +1,9 @@
 # TODO 1. Remove randomness from O's decsions, always go for the draw
-# TODO 2. Write a better display func, show the board properly
+# TODONE 2. Write a better display func, show the board properly
 # TODO 3. Refactor functions, remove import random -> use dicts for lists
 # TODO 4. PEP8 cleanup
 # TODO 5. Ask whether the user wants to go first or not (will need to rewite O's decsions)
+# TODO 6. Write unit tests
 
 import re
 import random
@@ -13,7 +14,15 @@ class Board(object):
         self.turn_ctr = 0
 
     def display_board(self):
-        print(self.spaces)
+        abc = ["A", "B", "C"]
+        print(" \t1   2   3\n")
+        for i in range(3):
+            if i > 0:
+                print(" \t  |   |  ")
+            print(abc[i]+"\t"+self.spaces[i][0]+" | "+self.spaces[i][1]+" | "+self.spaces[i][2])
+            if i < 2:
+                print(" \t__|___|__")
+        print("\n")
 
     def display_winner(self):
         if self.turn_ctr % 2 == 0:
