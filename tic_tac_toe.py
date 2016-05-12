@@ -15,13 +15,13 @@ class Board(object):
 
     def display_board(self):
         abc = ["A", "B", "C"]
-        print(" \t1   2   3\n")
+        print("   1   2   3\n")
         for i in range(3):
             if i > 0:
-                print(" \t  |   |  ")
-            print(abc[i]+"\t"+self.spaces[i][0]+" | "+self.spaces[i][1]+" | "+self.spaces[i][2])
+                print("     |   |  ")
+            print(abc[i]+"  "+self.spaces[i][0]+" | "+self.spaces[i][1]+" | "+self.spaces[i][2])
             if i < 2:
-                print(" \t__|___|__")
+                print("   __|___|__")
         print("\n")
 
     def display_winner(self):
