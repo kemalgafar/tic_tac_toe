@@ -17,6 +17,8 @@ class Board(object):
         self.corners = [[0,0], [0,2], [2,0], [2,2]] #make into dicts, then no need for importing rand
         self.edges = [[0,1], [1,0], [1,2], [2,1]]
         self.center = [[1,1]]
+        # O's blocking move
+        self.blocking = []
 
     def display_board(self):
         abc = ["A", "B", "C"]
@@ -90,15 +92,86 @@ class Board(object):
             else:
                 return self.center.pop()
         # Every other move for "0"
-        #elif:
         else:
-            remaining_spaces = (self.corners + self.edges + self.center)
-            try:
-                remaining_spaces.remove([])
-            except:
-                pass
-            return random.choice(remaining_spaces)
+            if self.turn_ctr > 2:
+                self.o_block()
 
+            if self.blocking != []:
+                return self.blocking.pop()
+            else:
+                remaining_spaces = (self.corners + self.edges + self.center)
+                try:
+                    remaining_spaces.remove([])
+                except:
+                    pass
+                return random.choice(remaining_spaces)
+
+    def o_block(self):
+        #Need to check each of the 8 possibilities (is there a better way?)
+        #Permutations of case #1 (Diagonal \)
+        if (self.spaces[0][0] == "X") and (self.spaces[1][1] == "X") and (self.spaces[2][2] == " "):
+            self.blocking.append([2,2])
+        elif (self.spaces[0][0] == "X") and (self.spaces[2][2] == "X") and (self.spaces[1][1] == " "):
+            self.blocking.append([1,1])
+        elif (self.spaces[1][1] == "X") and (self.spaces[2][2] == "X") and (self.spaces[0][0] == " "):
+            self.blocking.append([0,0])
+        #Permutations of case #2 (Diagonal /)
+        elif (self.spaces[2][0] == "X") and (self.spaces[1][1] == "X") and (self.spaces[0][2] == " "):
+            self.blocking.append([0,2])
+        elif (self.spaces[2][0] == "X") and (self.spaces[0][2] == "X") and (self.spaces[1][1] == " "):
+            self.blocking.append([1,1])
+        elif (self.spaces[1][1] == "X") and (self.spaces[0][2] == "X") and (self.spaces[2][0] == " "):
+            self.blocking.append([2,0])
+        #Permutations of case #3 (Row 1 Horizontal)
+        elif (self.spaces[0][0] == "X") and (self.spaces[0][1] == "X") and (self.spaces[0][2] == " "):
+            self.blocking.append([0,2])
+        elif (self.spaces[0][0] == "X") and (self.spaces[0][2] == "X") and (self.spaces[0][1] == " "):
+            self.blocking.append([0,1])
+        elif (self.spaces[0][1] == "X") and (self.spaces[0][2] == "X") and (self.spaces[0][0] == " "):
+            self.blocking.append([0,0])
+        #Permutations of case #4 (Row 2 Horizontal)
+        elif (self.spaces[1][0] == "X") and (self.spaces[1][1] == "X") and (self.spaces[1][2] == " "):
+            self.blocking.append([1,2])
+        elif (self.spaces[1][0] == "X") and (self.spaces[1][2] == "X") and (self.spaces[1][1] == " "):
+            self.blocking.append([1,1])
+        elif (self.spaces[1][1] == "X") and (self.spaces[1][2] == "X") and (self.spaces[1][0] == " "):
+            self.blocking.append([1,0])
+        #Permutations of case #5 (Row 3 Horizontal)
+        elif (self.spaces[2][0] == "X") and (self.spaces[2][1] == "X") and (self.spaces[2][2] == " "):
+            self.blocking.append([2,2])
+        elif (self.spaces[2][0] == "X") and (self.spaces[2][2] == "X") and (self.spaces[2][1] == " "):
+            self.blocking.append([2,1])
+        elif (self.spaces[2][1] == "X") and (self.spaces[2][2] == "X") and (self.spaces[2][0] == " "):
+            self.blocking.append([2,0])
+        #Permutations of case #6 (Col 1 Vertical)
+        elif (self.spaces[0][0] == "X") and (self.spaces[2][0] == "X") and (self.blocking[1][0] == " "):
+            self.blocking.append([1,0])
+        elif (self.spaces[0][0] == "X") and (self.spaces[1][0] == "X") and (self.blocking[2][0] == " "):
+            self.blocking.append([2,0])
+        elif (self.spaces[1][0] == "X") and (self.spaces[2][0] == "X") and (self.blocking[0][0] == " "):
+            self.blocking.append([0,0])
+        #Permutations of case #7 (Col 2 Vertical)
+        elif (self.spaces[0][1] == "X") and (self.spaces[2][1] == "X") and (self.blocking[1][1] == " "):
+            self.blocking.append([1,1])
+        elif (self.spaces[0][1] == "X") and (self.spaces[1][1] == "X") and (self.blocking[2][1] == " "):
+            self.blocking.append([2,1])
+        elif (self.spaces[1][1] == "X") and (self.spaces[2][1] == "X") and (self.blocking[0][1] == " "):
+            self.blocking.append([0,1])
+        #Permutations of case #8 (Col 3 Vertical)
+        elif (self.spaces[0][2] == "X") and (self.spaces[2][2] == "X") and (self.blocking[1][2] == " "):
+            self.blocking.append([1,2])
+        elif (self.spaces[0][2] == "X") and (self.spaces[1][2] == "X") and (self.blocking[2][2] == " "):
+            self.blocking.append([2,2])
+        else:
+            self.blocking.append([0,2])
+
+        #Removing the coordinate from possible moves to prevent dupes
+        if self.blocking[0] in self.corners:
+            self.corners.remove(self.blocking[0])
+        if self.blocking[0] in self.edges:
+            self.edges.remove(self.blocking[0])
+        if self.blocking[0] in self.center:
+            self.center.remove(self.blocking[0])
 
     def score_board(self):
         three_in_a_row = False
