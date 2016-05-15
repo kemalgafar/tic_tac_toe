@@ -1,4 +1,4 @@
-# TODO 1. Remove randomness from O's decsions, always go for the draw
+# TODONE 1. Remove randomness from O's decsions, always go for the draw
 # TODONE 2. Write a better display func, show the board properly
 # TODO 3. Refactor functions, remove import random -> use dicts for lists
 # TODO 4. PEP8 cleanup
@@ -87,7 +87,7 @@ class Board(object):
         # Opening move for "O"
         if self.turn_ctr == 1:
             if self.spaces[1][1] == "X":
-                random.shuffle(corners)
+                random.shuffle(self.corners)
                 return self.corners.pop()
             else:
                 return self.center.pop()
@@ -144,23 +144,23 @@ class Board(object):
         elif (self.spaces[2][1] == "X") and (self.spaces[2][2] == "X") and (self.spaces[2][0] == " "):
             self.blocking.append([2,0])
         #Permutations of case #6 (Col 1 Vertical)
-        elif (self.spaces[0][0] == "X") and (self.spaces[2][0] == "X") and (self.blocking[1][0] == " "):
+        elif (self.spaces[0][0] == "X") and (self.spaces[2][0] == "X") and (self.spaces[1][0] == " "):
             self.blocking.append([1,0])
-        elif (self.spaces[0][0] == "X") and (self.spaces[1][0] == "X") and (self.blocking[2][0] == " "):
+        elif (self.spaces[0][0] == "X") and (self.spaces[1][0] == "X") and (self.spaces[2][0] == " "):
             self.blocking.append([2,0])
-        elif (self.spaces[1][0] == "X") and (self.spaces[2][0] == "X") and (self.blocking[0][0] == " "):
+        elif (self.spaces[1][0] == "X") and (self.spaces[2][0] == "X") and (self.spaces[0][0] == " "):
             self.blocking.append([0,0])
         #Permutations of case #7 (Col 2 Vertical)
-        elif (self.spaces[0][1] == "X") and (self.spaces[2][1] == "X") and (self.blocking[1][1] == " "):
+        elif (self.spaces[0][1] == "X") and (self.spaces[2][1] == "X") and (self.spaces[1][1] == " "):
             self.blocking.append([1,1])
-        elif (self.spaces[0][1] == "X") and (self.spaces[1][1] == "X") and (self.blocking[2][1] == " "):
+        elif (self.spaces[0][1] == "X") and (self.spaces[1][1] == "X") and (self.spaces[2][1] == " "):
             self.blocking.append([2,1])
-        elif (self.spaces[1][1] == "X") and (self.spaces[2][1] == "X") and (self.blocking[0][1] == " "):
+        elif (self.spaces[1][1] == "X") and (self.spaces[2][1] == "X") and (self.spaces[0][1] == " "):
             self.blocking.append([0,1])
         #Permutations of case #8 (Col 3 Vertical)
-        elif (self.spaces[0][2] == "X") and (self.spaces[2][2] == "X") and (self.blocking[1][2] == " "):
+        elif (self.spaces[0][2] == "X") and (self.spaces[2][2] == "X") and (self.spaces[1][2] == " "):
             self.blocking.append([1,2])
-        elif (self.spaces[0][2] == "X") and (self.spaces[1][2] == "X") and (self.blocking[2][2] == " "):
+        elif (self.spaces[0][2] == "X") and (self.spaces[1][2] == "X") and (self.spaces[2][2] == " "):
             self.blocking.append([2,2])
         else:
             self.blocking.append([0,2])
@@ -208,6 +208,7 @@ class Board(object):
                     break
             self.turn_ctr += 1
             if self.turn_ctr == 9 and win == False:  #take the dis winner func out of the class can combine all 3 options in a func
+                self.display_board()
                 print("The game ends in a stalemate")
                 break
 
