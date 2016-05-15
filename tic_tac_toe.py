@@ -14,7 +14,7 @@ class Board(object):
         self.turn_ctr = 0
         self.char_look_up = {"A":0, "B":1, "C":2}
         # The 9 possible spaces
-        self.corners = [[0,0], [0,2], [2,0], [2,2]] #make into dicts, then no need for importing rand
+        self.corners = [[0,0], [0,2], [2,0], [2,2]] #make into dicts, then no need for importing rand??????????/
         self.edges = [[0,1], [1,0], [1,2], [2,1]]
         self.center = [[1,1]]
         # O's blocking move
@@ -107,57 +107,59 @@ class Board(object):
                 return random.choice(remaining_spaces)
 
     def o_block(self):
-        #Need to check each of the 8 possibilities (is there a better way?)
-        #Permutations of case #1 (Diagonal \)
+        #TAKE THIS FUNC, USE TOKENS TO SEE WHEN A POSSIBLE 3 IN A ROW FOR 0 IS POSSIBLE AND UTILIZE ###############3
+        #MAKE TOKENS PART OF THE CLASS? Make a func to change tokens at end of every turn? ##################
+        #Need to check each of the 8 possibilities (is there a better way?) #######################
+        # Permutations of case #1 (Diagonal \)
         if (self.spaces[0][0] == "X") and (self.spaces[1][1] == "X") and (self.spaces[2][2] == " "):
             self.blocking.append([2,2])
         elif (self.spaces[0][0] == "X") and (self.spaces[2][2] == "X") and (self.spaces[1][1] == " "):
             self.blocking.append([1,1])
         elif (self.spaces[1][1] == "X") and (self.spaces[2][2] == "X") and (self.spaces[0][0] == " "):
             self.blocking.append([0,0])
-        #Permutations of case #2 (Diagonal /)
+        # Permutations of case #2 (Diagonal /)
         elif (self.spaces[2][0] == "X") and (self.spaces[1][1] == "X") and (self.spaces[0][2] == " "):
             self.blocking.append([0,2])
         elif (self.spaces[2][0] == "X") and (self.spaces[0][2] == "X") and (self.spaces[1][1] == " "):
             self.blocking.append([1,1])
         elif (self.spaces[1][1] == "X") and (self.spaces[0][2] == "X") and (self.spaces[2][0] == " "):
             self.blocking.append([2,0])
-        #Permutations of case #3 (Row 1 Horizontal)
+        # Permutations of case #3 (Row 1 Horizontal)
         elif (self.spaces[0][0] == "X") and (self.spaces[0][1] == "X") and (self.spaces[0][2] == " "):
             self.blocking.append([0,2])
         elif (self.spaces[0][0] == "X") and (self.spaces[0][2] == "X") and (self.spaces[0][1] == " "):
             self.blocking.append([0,1])
         elif (self.spaces[0][1] == "X") and (self.spaces[0][2] == "X") and (self.spaces[0][0] == " "):
             self.blocking.append([0,0])
-        #Permutations of case #4 (Row 2 Horizontal)
+        # Permutations of case #4 (Row 2 Horizontal)
         elif (self.spaces[1][0] == "X") and (self.spaces[1][1] == "X") and (self.spaces[1][2] == " "):
             self.blocking.append([1,2])
         elif (self.spaces[1][0] == "X") and (self.spaces[1][2] == "X") and (self.spaces[1][1] == " "):
             self.blocking.append([1,1])
         elif (self.spaces[1][1] == "X") and (self.spaces[1][2] == "X") and (self.spaces[1][0] == " "):
             self.blocking.append([1,0])
-        #Permutations of case #5 (Row 3 Horizontal)
+        # Permutations of case #5 (Row 3 Horizontal)
         elif (self.spaces[2][0] == "X") and (self.spaces[2][1] == "X") and (self.spaces[2][2] == " "):
             self.blocking.append([2,2])
         elif (self.spaces[2][0] == "X") and (self.spaces[2][2] == "X") and (self.spaces[2][1] == " "):
             self.blocking.append([2,1])
         elif (self.spaces[2][1] == "X") and (self.spaces[2][2] == "X") and (self.spaces[2][0] == " "):
             self.blocking.append([2,0])
-        #Permutations of case #6 (Col 1 Vertical)
+        # Permutations of case #6 (Col 1 Vertical)
         elif (self.spaces[0][0] == "X") and (self.spaces[2][0] == "X") and (self.spaces[1][0] == " "):
             self.blocking.append([1,0])
         elif (self.spaces[0][0] == "X") and (self.spaces[1][0] == "X") and (self.spaces[2][0] == " "):
             self.blocking.append([2,0])
         elif (self.spaces[1][0] == "X") and (self.spaces[2][0] == "X") and (self.spaces[0][0] == " "):
             self.blocking.append([0,0])
-        #Permutations of case #7 (Col 2 Vertical)
+        # Permutations of case #7 (Col 2 Vertical)
         elif (self.spaces[0][1] == "X") and (self.spaces[2][1] == "X") and (self.spaces[1][1] == " "):
             self.blocking.append([1,1])
         elif (self.spaces[0][1] == "X") and (self.spaces[1][1] == "X") and (self.spaces[2][1] == " "):
             self.blocking.append([2,1])
         elif (self.spaces[1][1] == "X") and (self.spaces[2][1] == "X") and (self.spaces[0][1] == " "):
             self.blocking.append([0,1])
-        #Permutations of case #8 (Col 3 Vertical)
+        # Permutations of case #8 (Col 3 Vertical)
         elif (self.spaces[0][2] == "X") and (self.spaces[2][2] == "X") and (self.spaces[1][2] == " "):
             self.blocking.append([1,2])
         elif (self.spaces[0][2] == "X") and (self.spaces[1][2] == "X") and (self.spaces[2][2] == " "):
@@ -165,7 +167,7 @@ class Board(object):
         else:
             self.blocking.append([0,2])
 
-        #Removing the coordinate from possible moves to prevent dupes
+        # Removing the coordinate from possible moves to prevent dupes
         if self.blocking[0] in self.corners:
             self.corners.remove(self.blocking[0])
         if self.blocking[0] in self.edges:
@@ -179,17 +181,17 @@ class Board(object):
             token = "X"
         else:
             token = "O"
-        #Score diagonals
+        # Score diagonals
         if self.spaces[1][1] == token:
             if (self.spaces[0][0] == token) and (self.spaces[2][2] == token):
                 three_in_a_row = True
             if (self.spaces[0][2] == token) and (self.spaces[2][0] == token):
                 three_in_a_row = True
-        #Score horizontals
+        # Score horizontals
         for i in range(3):
             if (self.spaces[i][0] == token) and (self.spaces[i][1] == token) and (self.spaces[i][2] == token):
                 three_in_a_row = True
-        #Score verticals
+        # Score verticals
         for j in range(3):
             if (self.spaces[0][j] == token) and (self.spaces[1][j] == token) and (self.spaces[2][j] == token):
                 three_in_a_row = True
@@ -207,7 +209,7 @@ class Board(object):
                     self.display_winner()
                     break
             self.turn_ctr += 1
-            if self.turn_ctr == 9 and win == False:  #take the dis winner func out of the class can combine all 3 options in a func
+            if self.turn_ctr == 9 and win == False:  #take the dis winner func out of the class can combine all 3 options in a func###########
                 self.display_board()
                 print("The game ends in a stalemate")
                 break
