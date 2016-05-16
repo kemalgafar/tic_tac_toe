@@ -104,10 +104,10 @@ class Board(object):
                 self.o_win_or_block("O")
                 if self.win_block_coord == []:
                     self.o_win_or_block("X")
-            elif (self.turn_ctr == 3) and (len(self.corners) == 2):
+                if self.win_block_coord != []:
+                    return self.win_block_coord.pop()
+            if (self.turn_ctr == 3) and (len(self.corners) == 2):
                 return self.edges.pop()
-            if self.win_block_coord != []:
-                return self.win_block_coord.pop()
             else:
                 remaining_spaces = (self.corners + self.edges + self.center)
                 try:
@@ -117,7 +117,6 @@ class Board(object):
                 return random.choice(remaining_spaces)
 
     def o_win_or_block(self, win_or_block):
-        #TAKE THIS FUNC, USE TOKENS TO SEE WHEN A POSSIBLE 3 IN A ROW FOR 0 IS POSSIBLE AND UTILIZE ###############3
         #Need to check each of the 8 possibilities (is there a better way?) #######################
         # Permutations of case #1 (Diagonal \)
         if (self.spaces[0][0] == win_or_block) and (self.spaces[1][1] == win_or_block) and (self.spaces[2][2] == " "):
