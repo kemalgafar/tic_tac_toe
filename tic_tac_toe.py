@@ -110,7 +110,7 @@ class Board(object):
                     self.o_win_or_block("X")
                 if self.win_block_coord != []:
                     return self.win_block_coord.pop()
-            if (self.turn_ctr == 3 andlen(self.corners) == 2):
+            if self.turn_ctr == 3 and len(self.corners) == 2:
                 return self.edges.pop()
             else:
                 remaining_spaces = (self.corners + self.edges + self.center)
