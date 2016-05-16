@@ -100,7 +100,9 @@ class Board(object):
                 return self.center.pop()
         # Every other move for "0"
         else:
-            if self.turn_ctr > 2:
+            if (self.turn_ctr == 3) and (len(self.corners) == 2):
+                return self.edges.pop()
+            elif self.turn_ctr > 2:
                 self.o_win_or_block("O")
                 if self.win_block_coord == []:
                     self.o_win_or_block("X")
