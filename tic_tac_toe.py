@@ -1,7 +1,7 @@
 # TODONE 1. Remove randomness from O's decsions, always go for the draw or win if possible
 # TODONE 2. Write a better display func, show the board properly
 # TODO 3. Refactor functions, remove import random -> use dicts for lists?
-# TODO 4. PEP8 cleanup
+# TODONE? 4. PEP8 cleanup
 # TODO 5. Ask whether the user wants to go first or not (will need to rewite O's decsions?)
 # TODO 6. Write unit tests
 
@@ -27,7 +27,11 @@ class Board(object):
         for i in range(3):
             if i > 0:
                 print("     |   |  ")
-            print(abc[i]+"  "+self.spaces[i][0]+" | "+self.spaces[i][1]+" | "+self.spaces[i][2])
+            print(abc[i]
+                  + "  "
+                  + self.spaces[i][0]
+                  + " | " +self.spaces[i][1]
+                  + " | " +self.spaces[i][2])
             if i < 2:
                 print("   __|___|__")
         print("\n")
@@ -106,7 +110,7 @@ class Board(object):
                     self.o_win_or_block("X")
                 if self.win_block_coord != []:
                     return self.win_block_coord.pop()
-            if (self.turn_ctr == 3) and (len(self.corners) == 2):
+            if (self.turn_ctr == 3 andlen(self.corners) == 2):
                 return self.edges.pop()
             else:
                 remaining_spaces = (self.corners + self.edges + self.center)
@@ -119,62 +123,109 @@ class Board(object):
     def o_win_or_block(self, win_or_block):
         #Need to check each of the 8 possibilities (is there a better way?) #######################
         # Permutations of case #1 (Diagonal \)
-        if (self.spaces[0][0] == win_or_block) and (self.spaces[1][1] == win_or_block) and (self.spaces[2][2] == " "):
+        if (self.spaces[0][0] == win_or_block and
+                self.spaces[1][1] == win_or_block and
+                self.spaces[2][2] == " "):
             self.win_block_coord.append([2,2])
-        elif (self.spaces[0][0] == win_or_block) and (self.spaces[2][2] == win_or_block) and (self.spaces[1][1] == " "):
+        elif (self.spaces[0][0] == win_or_block and
+                self.spaces[2][2] == win_or_block and
+                self.spaces[1][1] == " "):
             self.win_block_coord.append([1,1])
-        elif (self.spaces[1][1] == win_or_block) and (self.spaces[2][2] == win_or_block) and (self.spaces[0][0] == " "):
+        elif (self.spaces[1][1] == win_or_block and
+                self.spaces[2][2] == win_or_block and
+                self.spaces[0][0] == " "):
             self.win_block_coord.append([0,0])
         # Permutations of case #2 (Diagonal /)
-        elif (self.spaces[2][0] == win_or_block) and (self.spaces[1][1] == win_or_block) and (self.spaces[0][2] == " "):
+        elif (self.spaces[2][0] == win_or_block and
+                self.spaces[1][1] == win_or_block and
+                self.spaces[0][2] == " "):
             self.win_block_coord.append([0,2])
-        elif (self.spaces[2][0] == win_or_block) and (self.spaces[0][2] == win_or_block) and (self.spaces[1][1] == " "):
+        elif (self.spaces[2][0] == win_or_block and
+                self.spaces[0][2] == win_or_block and
+                self.spaces[1][1] == " "):
             self.win_block_coord.append([1,1])
-        elif (self.spaces[1][1] == win_or_block) and (self.spaces[0][2] == win_or_block) and (self.spaces[2][0] == " "):
+        elif (self.spaces[1][1] == win_or_block and
+                self.spaces[0][2] == win_or_block and
+                self.spaces[2][0] == " "):
             self.win_block_coord.append([2,0])
         # Permutations of case #3 (Row 1 Horizontal)
-        elif (self.spaces[0][0] == win_or_block) and (self.spaces[0][1] == win_or_block) and (self.spaces[0][2] == " "):
+        elif (self.spaces[0][0] == win_or_block and
+                self.spaces[0][1] == win_or_block and
+                self.spaces[0][2] == " "):
             self.win_block_coord.append([0,2])
-        elif (self.spaces[0][0] == win_or_block) and (self.spaces[0][2] == win_or_block) and (self.spaces[0][1] == " "):
+        elif (self.spaces[0][0] == win_or_block and
+                self.spaces[0][2] == win_or_block and
+                self.spaces[0][1] == " "):
             self.win_block_coord.append([0,1])
-        elif (self.spaces[0][1] == win_or_block) and (self.spaces[0][2] == win_or_block) and (self.spaces[0][0] == " "):
+        elif (self.spaces[0][1] == win_or_block and
+                self.spaces[0][2] == win_or_block and
+                self.spaces[0][0] == " "):
             self.win_block_coord.append([0,0])
         # Permutations of case #4 (Row 2 Horizontal)
-        elif (self.spaces[1][0] == win_or_block) and (self.spaces[1][1] == win_or_block) and (self.spaces[1][2] == " "):
+        elif (self.spaces[1][0] == win_or_block and
+                self.spaces[1][1] == win_or_block and
+                self.spaces[1][2] == " "):
             self.win_block_coord.append([1,2])
-        elif (self.spaces[1][0] == win_or_block) and (self.spaces[1][2] == win_or_block) and (self.spaces[1][1] == " "):
+        elif (self.spaces[1][0] == win_or_block and
+                self.spaces[1][2] == win_or_block and
+                self.spaces[1][1] == " "):
             self.win_block_coord.append([1,1])
-        elif (self.spaces[1][1] == win_or_block) and (self.spaces[1][2] == win_or_block) and (self.spaces[1][0] == " "):
+        elif (self.spaces[1][1] == win_or_block and
+                self.spaces[1][2] == win_or_block and
+                self.spaces[1][0] == " "):
             self.win_block_coord.append([1,0])
         # Permutations of case #5 (Row 3 Horizontal)
-        elif (self.spaces[2][0] == win_or_block) and (self.spaces[2][1] == win_or_block) and (self.spaces[2][2] == " "):
+        elif (self.spaces[2][0] == win_or_block and
+                self.spaces[2][1] == win_or_block and
+                self.spaces[2][2] == " "):
             self.win_block_coord.append([2,2])
-        elif (self.spaces[2][0] == win_or_block) and (self.spaces[2][2] == win_or_block) and (self.spaces[2][1] == " "):
+        elif (self.spaces[2][0] == win_or_block and
+                self.spaces[2][2] == win_or_block and
+                self.spaces[2][1] == " "):
             self.win_block_coord.append([2,1])
-        elif (self.spaces[2][1] == win_or_block) and (self.spaces[2][2] == win_or_block) and (self.spaces[2][0] == " "):
+        elif (self.spaces[2][1] == win_or_block and
+                self.spaces[2][2] == win_or_block and
+                self.spaces[2][0] == " "):
             self.win_block_coord.append([2,0])
         # Permutations of case #6 (Col 1 Vertical)
-        elif (self.spaces[0][0] == win_or_block) and (self.spaces[2][0] == win_or_block) and (self.spaces[1][0] == " "):
+        elif (self.spaces[0][0] == win_or_block and
+                self.spaces[2][0] == win_or_block and
+                self.spaces[1][0] == " "):
             self.win_block_coord.append([1,0])
-        elif (self.spaces[0][0] == win_or_block) and (self.spaces[1][0] == win_or_block) and (self.spaces[2][0] == " "):
+        elif (self.spaces[0][0] == win_or_block and
+                self.spaces[1][0] == win_or_block and
+                self.spaces[2][0] == " "):
             self.win_block_coord.append([2,0])
-        elif (self.spaces[1][0] == win_or_block) and (self.spaces[2][0] == win_or_block) and (self.spaces[0][0] == " "):
+        elif (self.spaces[1][0] == win_or_block and
+                self.spaces[2][0] == win_or_block and
+                self.spaces[0][0] == " "):
             self.win_block_coord.append([0,0])
         # Permutations of case #7 (Col 2 Vertical)
-        elif (self.spaces[0][1] == win_or_block) and (self.spaces[2][1] == win_or_block) and (self.spaces[1][1] == " "):
+        elif (self.spaces[0][1] == win_or_block and
+                self.spaces[2][1] == win_or_block and
+                self.spaces[1][1] == " "):
             self.win_block_coord.append([1,1])
-        elif (self.spaces[0][1] == win_or_block) and (self.spaces[1][1] == win_or_block) and (self.spaces[2][1] == " "):
+        elif (self.spaces[0][1] == win_or_block and
+                self.spaces[1][1] == win_or_block and
+                self.spaces[2][1] == " "):
             self.win_block_coord.append([2,1])
-        elif (self.spaces[1][1] == win_or_block) and (self.spaces[2][1] == win_or_block) and (self.spaces[0][1] == " "):
+        elif (self.spaces[1][1] == win_or_block and
+                self.spaces[2][1] == win_or_block and
+                self.spaces[0][1] == " "):
             self.win_block_coord.append([0,1])
         # Permutations of case #8 (Col 3 Vertical)
-        elif (self.spaces[0][2] == win_or_block) and (self.spaces[2][2] == win_or_block) and (self.spaces[1][2] == " "):
+        elif (self.spaces[0][2] == win_or_block and
+                self.spaces[2][2] == win_or_block and
+                self.spaces[1][2] == " "):
             self.win_block_coord.append([1,2])
-        elif (self.spaces[0][2] == win_or_block) and (self.spaces[1][2] == win_or_block) and (self.spaces[2][2] == " "):
+        elif (self.spaces[0][2] == win_or_block and
+                self.spaces[1][2] == win_or_block and
+                self.spaces[2][2] == " "):
             self.win_block_coord.append([2,2])
-        elif (self.spaces[1][2] == win_or_block) and (self.spaces[2][2] == win_or_block) and (self.spaces[0][2] == " "):
+        elif (self.spaces[1][2] == win_or_block and
+                self.spaces[2][2] == win_or_block and
+                self.spaces[0][2] == " "):
             self.win_block_coord.append([0,2])
-
         # Removing the coordinate from possible moves to prevent dupes
         try:
             if self.win_block_coord[0] in self.corners:
@@ -190,17 +241,23 @@ class Board(object):
         three_in_a_row = False
         # Score diagonals
         if self.spaces[1][1] == self.token:
-            if (self.spaces[0][0] == self.token) and (self.spaces[2][2] == self.token):
+            if (self.spaces[0][0] == self.token and
+                    self.spaces[2][2] == self.token):
                 three_in_a_row = True
-            if (self.spaces[0][2] == self.token) and (self.spaces[2][0] == self.token):
+            if (self.spaces[0][2] == self.token and
+                    self.spaces[2][0] == self.token):
                 three_in_a_row = True
         # Score horizontals
         for i in range(3):
-            if (self.spaces[i][0] == self.token) and (self.spaces[i][1] == self.token) and (self.spaces[i][2] == self.token):
+            if (self.spaces[i][0] == self.token and
+                    self.spaces[i][1] == self.token and
+                    self.spaces[i][2] == self.token):
                 three_in_a_row = True
         # Score verticals
         for j in range(3):
-            if (self.spaces[0][j] == self.token) and (self.spaces[1][j] == self.token) and (self.spaces[2][j] == self.token):
+            if (self.spaces[0][j] == self.token and
+                    self.spaces[1][j] == self.token and
+                    self.spaces[2][j] == self.token):
                 three_in_a_row = True
         return three_in_a_row
 
