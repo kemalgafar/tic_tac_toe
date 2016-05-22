@@ -1,9 +1,4 @@
-# TODONE 1. Remove randomness from O's decsions, always go for the draw or win if possible
-# TODONE 2. Write a better display func, show the board properly
-# TODO 3. Refactor functions, remove import random -> use dicts for lists?
-# TODONE? 4. PEP8 cleanup
-# TODO 5. Ask whether the user wants to go first or not (will need to rewite O's decsions?)
-# TODO 6. Write unit tests
+# A simple tic-tac-toe game
 
 import re
 import random
@@ -11,11 +6,12 @@ import random
 class Board(object):
     def __init__(self):
         self.spaces = [[" " for i in range(3)] for j in range(3)]
-        self.turn_ctr = 0
+        self.turn_counter = 0
+        # 'token' is just that, a token value that can be either 'X' or 'O'
         self.token = ""
         self.char_look_up = {"A":0, "B":1, "C":2}
         # The 9 possible spaces
-        self.corners = [[0,0], [0,2], [2,0], [2,2]] #make into dicts, then no need for importing rand??????????/
+        self.corners = [[0,0], [0,2], [2,0], [2,2]]
         self.edges = [[0,1], [1,0], [1,2], [2,1]]
         self.center = [[1,1]]
         # O's blocking or_winning move
@@ -37,7 +33,7 @@ class Board(object):
         print("\n")
 
     def decide_turn(self):
-        if self.turn_ctr % 2 == 0:
+        if self.turn_counter % 2 == 0:
             self.token = "X"
         else:
             self.token = "O"
@@ -56,6 +52,10 @@ class Board(object):
 
     def x_turn(self):
         x_coord = self.str_to_int()
+        # x_coord is a two element array where index[0]
+        # is the x-coordinate index[1] is the y-coordinate
+        # Since user input/counting starts at '1' simple
+        # subtraction is needed to make the coordinate useful
         if self.spaces[x_coord[0]][x_coord[1] - 1] == " ":
             if [x_coord[0], x_coord[1] - 1] in self.corners:
                 self.corners.remove([x_coord[0], x_coord[1] - 1])
@@ -96,7 +96,7 @@ class Board(object):
 
     def o_choices(self):
         # Opening move for "O"
-        if self.turn_ctr == 1:
+        if self.turn_counter == 1:
             if self.spaces[1][1] == "X":
                 random.shuffle(self.corners)
                 return self.corners.pop()
@@ -104,13 +104,13 @@ class Board(object):
                 return self.center.pop()
         # Every other move for "0"
         else:
-            if self.turn_ctr > 2:
+            if self.turn_counter > 2:
                 self.o_win_or_block("O")
                 if self.win_block_coord == []:
                     self.o_win_or_block("X")
                 if self.win_block_coord != []:
                     return self.win_block_coord.pop()
-            if self.turn_ctr == 3 and len(self.corners) == 2:
+            if self.turn_counter == 3 and len(self.corners) == 2:
                 return self.edges.pop()
             else:
                 remaining_spaces = (self.corners + self.edges + self.center)
@@ -121,7 +121,6 @@ class Board(object):
                 return random.choice(remaining_spaces)
 
     def o_win_or_block(self, win_or_block):
-        #Need to check each of the 8 possibilities (is there a better way?) #######################
         # Permutations of case #1 (Diagonal \)
         if (self.spaces[0][0] == win_or_block and
                 self.spaces[1][1] == win_or_block and
@@ -263,18 +262,18 @@ class Board(object):
 
     def play_game(self):
         win = False
-        while self.turn_ctr < 10:
+        while self.turn_counter < 10:
             self.display_board()
             self.decide_turn()
             self.place_x_o()
-            if self.turn_ctr > 3:
+            if self.turn_counter > 3:
                 win = self.score_board()
                 if win == True:
                     self.display_board()
                     self.display_winner()
                     break
-            self.turn_ctr += 1
-            if self.turn_ctr == 9 and win == False:  #take the dis winner func out of the class can combine all 3 options in a func###########
+            self.turn_counter += 1
+            if self.turn_counter == 9 and win == False:
                 self.display_board()
                 print("The game ends in a stalemate")
                 break
