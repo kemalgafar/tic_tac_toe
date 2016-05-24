@@ -7,14 +7,14 @@ class Board(object):
     def __init__(self):
         self.spaces = [[" " for i in range(3)] for j in range(3)]
         self.turn_counter = 0
-        # 'token' is just that, a token value that can be either 'X' or 'O'
+        # A token value that can be either 'X' or 'O'
         self.token = ""
         self.char_look_up = {"A":0, "B":1, "C":2}
         # The 9 possible spaces
         self.corners = [[0,0], [0,2], [2,0], [2,2]]
         self.edges = [[0,1], [1,0], [1,2], [2,1]]
         self.center = [[1,1]]
-        # O's blocking or_winning move
+        # O's winning or blocking move
         self.win_block_coord = []
 
     def display_board(self):
@@ -53,9 +53,9 @@ class Board(object):
     def x_turn(self):
         x_coord = self.str_to_int()
         # x_coord is a two element array where index[0]
-        # is the x-coordinate index[1] is the y-coordinate
-        # Since user input/counting starts at '1' simple
-        # subtraction is needed to make the coordinate useful
+        # is the x-coordinate, index[1] is the y-coordinate
+        # Since user input/counting starts at '1' subtract by 1
+        # to make the coordinate useful
         if self.spaces[x_coord[0]][x_coord[1] - 1] == " ":
             if [x_coord[0], x_coord[1] - 1] in self.corners:
                 self.corners.remove([x_coord[0], x_coord[1] - 1])
@@ -102,7 +102,7 @@ class Board(object):
                 return self.corners.pop()
             else:
                 return self.center.pop()
-        # Every other move for "0"
+        # Every other move for "O"
         else:
             if self.turn_counter > 2:
                 self.o_win_or_block("O")
@@ -116,7 +116,7 @@ class Board(object):
                 remaining_spaces = (self.corners + self.edges + self.center)
                 try:
                     remaining_spaces.remove([])
-                except:
+                except ValueError:
                     pass
                 return random.choice(remaining_spaces)
 
@@ -233,7 +233,7 @@ class Board(object):
                 self.edges.remove(self.win_block_coord[0])
             if self.win_block_coord[0] in self.center:
                 self.center.remove(self.win_block_coord[0])
-        except:
+        except IndexError:
             pass
 
     def score_board(self):
